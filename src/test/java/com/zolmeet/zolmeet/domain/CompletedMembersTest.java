@@ -46,13 +46,13 @@ class CompletedMembersTest {
      * cancelBy()
      */
 
-    @DisplayName("매칭을 취소한다면 나 자신과 상대방 모두 PENDING 상태로 돌아가야 한다.")
+    @DisplayName("매칭을 취소한다면 나 자신만 PENDING 상태로 상대방은 그대로 MATCHED 상태가 되어야 한다.")
     @Test
     void name3() {
         CompletedMembers completedMembers = new CompletedMembers(male, female);
-        completedMembers.cancelBy();
+        completedMembers.cancelBy(male);
 
-        assertThat(female.nowStatus()).isEqualTo(Status.PENDING);
+        assertThat(female.nowStatus()).isEqualTo(Status.MATCHED);
         assertThat(male.nowStatus()).isEqualTo(Status.PENDING);
     }
 

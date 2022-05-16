@@ -78,7 +78,9 @@ class PendingMemberTest {
 
         CompletedMembers completedMembers = pendingMember1.match(pendingMember2);
 
-        completedMembers.cancelBy();
+        completedMembers.cancelBy(member1);
+        completedMembers.cancelBy(member2);
+
 
         assertThrows(IllegalArgumentException.class, () -> pendingMember1.match(pendingMember2));
     }

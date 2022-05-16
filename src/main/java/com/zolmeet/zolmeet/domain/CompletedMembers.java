@@ -23,9 +23,8 @@ public class CompletedMembers {
         return male;
     }
 
-    public void cancelBy() {
-        this.female.changedStatus(Status.PENDING);
-        this.male.changedStatus(Status.PENDING);
+    public void cancelBy(Member member) {
+        member.changedStatus(Status.PENDING);
     }
 
     public void exchangedTel() {
