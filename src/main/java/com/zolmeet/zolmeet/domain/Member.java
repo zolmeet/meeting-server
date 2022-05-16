@@ -4,7 +4,17 @@ public class Member {
 
     private final String studentId;
     private final Gender gender;
+    private String tel;
 
+    private String partnerTel;
+
+    private Status status = Status.JOIN;
+
+    public Member(String studentId, Gender gender, String tel) {
+        this.studentId = studentId;
+        this.gender = gender;
+        this.tel = tel;
+    }
 
     public Member(String studentId, Gender gender) {
         this.studentId = studentId;
@@ -15,11 +25,38 @@ public class Member {
         return this.gender == member.gender;
     }
 
-    public boolean isSameStudentId(Member otherMember) {
-        return this.studentId.equals(otherMember.studentId);
+    public boolean isSameStudentId(Member member) {
+        return this.studentId.equals(member.studentId);
     }
 
     public boolean canCheckProfile(Member female) {
         return true;
     }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setPartnerTel(String partnerTel) {
+        this.partnerTel = partnerTel;
+    }
+    public String getPartnerTel() {
+        return partnerTel;
+    }
+
+    public Status nowStatus() {
+        return this.status;
+    }
+    public void changedStatus(Status status) {
+        this.status = status;
+    }
+
+    public boolean isValidStudentId() {
+        String firstString = this.studentId.substring(0, 1);
+        String afterString = this.studentId.substring(1);
+
+        return firstString.matches("[A-Z]") && afterString.matches("[0-9]{6}");
+    }
+
+
 }
