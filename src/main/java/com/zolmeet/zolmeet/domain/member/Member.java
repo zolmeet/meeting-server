@@ -1,15 +1,22 @@
-package com.zolmeet.zolmeet.domain;
+package com.zolmeet.zolmeet.domain.member;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public class Member {
 
     private final String studentId;
     private final Gender gender;
     private String tel;
-    public List<String> matchingHistory = new ArrayList<>();
+    private String profile = "";
+    public List<String> matchingHistory;
 
+    private String partnerProfile;
     private String partnerTel;
     private Status status = Status.JOIN;
 
@@ -17,7 +24,7 @@ public class Member {
         this.studentId = studentId;
         this.gender = gender;
         this.tel = tel;
-
+        this.matchingHistory = new ArrayList<>();
         matchingHistory.add(this.studentId);
     }
 
@@ -32,10 +39,6 @@ public class Member {
 
     public boolean isSameStudentId(Member member) {
         return this.studentId.equals(member.studentId);
-    }
-
-    public boolean canCheckProfile(Member female) {
-        return true;
     }
 
     public String getTel() {

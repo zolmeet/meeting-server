@@ -1,9 +1,16 @@
 package com.zolmeet.zolmeet.domain;
 
+import com.zolmeet.zolmeet.domain.member.Member;
+import com.zolmeet.zolmeet.domain.member.Status;
+
+import java.time.LocalDate;
+
 public class CompletedMembers {
 
     private final Member male;
     private final Member female;
+
+    public LocalDate CreatedDate;
 
     public CompletedMembers(Member male, Member female) {
         this.male = male;

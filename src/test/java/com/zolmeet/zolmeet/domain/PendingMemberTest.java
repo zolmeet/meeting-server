@@ -1,25 +1,31 @@
+/*
 package com.zolmeet.zolmeet.domain;
 
+import com.zolmeet.zolmeet.domain.member.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PendingMemberTest {
 
+    MemberRepository pendingMemberRepository = new MemberRepositoryImpl();
     @DisplayName("멤버가 매칭 시작 버튼을 누르면 멤버의 매칭의 상태는 PENDING이다.")
     @Test
     void isPending() {
         Member requestMember = new Member("a", Gender.MALE);
         PendingMember pendingMember = new PendingMember(requestMember);
 
-        assertThat(pendingMember.isPending()).isTrue();
+        assertThat(requestMember.nowStatus()).isEqualTo(Status.PENDING);
     }
 
-    /**
-     * match()
-     */
+    */
+/*
+
 
     @DisplayName("동일한 사람과 매칭을 시도한다면 예외가 발생한다.")
     @Test
@@ -100,4 +106,52 @@ class PendingMemberTest {
         assertThat(male.nowStatus()).isEqualTo(Status.MATCHED);
         assertThat(female.nowStatus()).isEqualTo(Status.MATCHED);
     }
-}
+
+    */
+/*
+
+
+    @DisplayName("멤버가 매칭 시작 버튼을 누르면 PendingMemberRepositoryImpl 에 저장되어야 한다.")
+    @Test
+    void save() {
+        Member requestMember = new Member("B335129", Gender.MALE);
+        PendingMember pendingMember = new PendingMember(requestMember);
+
+        Member requestMember2 = new Member("B335127", Gender.MALE);
+        PendingMember pendingMember2 = new PendingMember(requestMember2);
+
+        assertThat(pendingMemberRepository.find(0)).isEqualTo(requestMember);
+        assertThat(pendingMemberRepository.find(1)).isEqualTo(requestMember2);
+    }
+
+    @DisplayName("매칭을 신청한 멤버의 파트너가 매칭되면 CompletedMembers 객체가 되어야 한다.")
+    @Test
+    void matchV2() {
+        Member requestMember = new Member("B335129", Gender.MALE);
+        PendingMember pendingMember = new PendingMember(requestMember);
+
+        Member requestMember2 = new Member("B335127", Gender.MALE);
+        PendingMember pendingMember2 = new PendingMember(requestMember2);
+
+        assertThat(pendingMember.matchV2()).isInstanceOf(CompletedMembers.class);
+
+    }
+
+    */
+/*
+
+
+    @DisplayName("매칭 규칙 : 자기 자신은 매칭될 수 없다.")
+    @Test
+    void isNotMySelf() {
+        Member requestMember = new Member("B335129", Gender.MALE);
+        PendingMember pendingMember = new PendingMember(requestMember);
+
+        Member requestMember2 = new Member("B335127", Gender.MALE);
+        PendingMember pendingMember2 = new PendingMember(requestMember2);
+
+        List<PendingMember> all = pendingMemberRepository.findAll();
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> all.stream().forEach((x) -> pendingMember.match(x)));
+    }
+}*/

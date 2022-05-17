@@ -1,6 +1,9 @@
+/*
 package com.zolmeet.zolmeet.domain;
 
-import org.junit.jupiter.api.Assertions;
+import com.zolmeet.zolmeet.domain.member.Gender;
+import com.zolmeet.zolmeet.domain.member.Member;
+import com.zolmeet.zolmeet.domain.member.Status;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -54,14 +57,7 @@ class MemberTest {
 
     }
 
-    @DisplayName("회원의 studentId의 형식은 대문자(1개) + 숫자(6개)로 구성되어야 합니다.")
-    @Test
-    void name44() {
-        Member member2 = new Member("1335129", Gender.MALE);
-
-    }
-
-    @DisplayName("회원의 studentId는 대문자(1개)로 시작해야 합니다.")
+    @DisplayName("회원의 studentId는 대문자(1개) + 숫자(6개)로 구성되어야 합니다.")
     @Test
     void studentIdFormat() {
 
@@ -79,4 +75,4 @@ class MemberTest {
     }
 
 
-}
+}*/
