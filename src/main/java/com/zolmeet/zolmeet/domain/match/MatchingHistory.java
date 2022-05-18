@@ -21,6 +21,9 @@ public class MatchingHistory {
 
     }
     public List<Member> checkOf(Member member) {
+        if (store.isEmpty()) {
+            return null;
+        }
         return store.get(member);
     }
 

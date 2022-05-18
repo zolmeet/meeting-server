@@ -23,8 +23,8 @@ class MatchingHistoryTest {
     @DisplayName("매칭 기록을 저장하면 양측 모두 매칭 기록에 상대방과 매칭했다는 정보가 저장되어야 합니다.")
     @Test
     void saveBothSide() {
-        Member member1 = new Member("B335129", Gender.MALE);
-        Member member2 = new Member("B335128", Gender.FEMALE);
+        Member member1 = new Member("B335129", Gender.MALE, "01000000000");
+        Member member2 = new Member("B335128", Gender.FEMALE, "01000000000");
 
         matchingHistory.save(member1, member2);
         List<Member> member1MatchingHistory = matchingHistory.checkOf(member1);
@@ -34,12 +34,12 @@ class MatchingHistoryTest {
         assertThat(member2MatchingHistory).contains(member1);
     }
 
-    @DisplayName("Null 로 부터 안전하지 검증")
+    @DisplayName("Null 로 부터 안전하지 검증 아 모르겠다 진심")
     @Test
     void name() {
-        Member member1 = new Member("B335129", Gender.MALE);
-        Member member2 = new Member("B335128", Gender.FEMALE);
+        Member member1 = new Member("B335129", Gender.MALE, "01000000000");
+        Member member2 = new Member("B335128", Gender.FEMALE, "01000000000");
 
-        assertThat(matchingHistory.checkOf(member1).isEmpty()).isTrue();
+        assertThat(matchingHistory.checkOf(member1)).isNull();
     }
 }
