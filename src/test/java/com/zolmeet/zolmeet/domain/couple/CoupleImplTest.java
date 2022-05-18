@@ -1,6 +1,7 @@
 package com.zolmeet.zolmeet.domain.couple;
 
 import com.zolmeet.zolmeet.domain.match.Matching;
+import com.zolmeet.zolmeet.domain.match.MatchingHistory;
 import com.zolmeet.zolmeet.domain.match.Matchinglmpl;
 import com.zolmeet.zolmeet.domain.member.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,8 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CoupleImplTest {
 
+    // 테스트를 위해 잠시 의존
     MemberRepository memberRepository = new MemberRepositoryImpl();
-    Matching matchingService = new Matchinglmpl(memberRepository);
+    MatchingHistory matchingHistory = new MatchingHistory();
+    Matching matchingService = new Matchinglmpl(memberRepository, matchingHistory);
     CoupleImpl coupleService = new CoupleImpl(matchingService);
 
     @BeforeEach

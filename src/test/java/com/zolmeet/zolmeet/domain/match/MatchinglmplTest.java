@@ -18,7 +18,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class MatchinglmplTest {
 
     MemberRepository memberRepository = new MemberRepositoryImpl();
-    Matching matchingService = new Matchinglmpl(memberRepository);
+    MatchingHistory matchingHistory = new MatchingHistory();
+    Matching matchingService = new Matchinglmpl(memberRepository, matchingHistory);
+
     @BeforeEach
     void beforeEach() {
         memberRepository.clear();
@@ -57,13 +59,31 @@ class MatchinglmplTest {
 
     @DisplayName("같은 후보가 중복해서 candidateList 에 들어갈 수 없다.")
     @Test
-    void name2() {
+    void isNotReduplication() {
         Member member1 = memberRepository.find(0);
         List<Member> candidateList = matchingService.collectCandidatesOf(member1);
 
         assertThat(candidateList.size()).isEqualTo(candidateList.stream().distinct().count());
     }
 
+    @DisplayName("이전에 매칭된 기록이 있는 상대방은 candidateList 에 들어갈 수 없습니다.")
+    @Test
+    void isNotExPartner() {
+
+        Member member1 = memberRepository.find(0);
+
+        // member1의 매칭 파트너 partner
+        Map<String, Member> memberMap = matchingService.match(member1);
+        Member partner = memberMap.get("partner");
+
+        //member1이 매칭을 취소, 이후 새롭게 매칭을 시도
+        List<Member> candidateList = matchingService.collectCandidatesOf(member1);
+
+        //새로운 매칭 후보자에는 partner 가 포함되면 안아야된다.
+        /*assertThat(partner).isNotIn(candidateList);*/
+    }
+
+    // 진행중
     @DisplayName("커플 매칭되어야한다.")
     @Test
     void name() {

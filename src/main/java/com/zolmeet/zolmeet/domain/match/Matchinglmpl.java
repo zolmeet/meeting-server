@@ -1,9 +1,8 @@
 package com.zolmeet.zolmeet.domain.match;
 
-import com.zolmeet.zolmeet.domain.couple.CoupleImpl;
+
 import com.zolmeet.zolmeet.domain.member.Member;
 import com.zolmeet.zolmeet.domain.member.MemberRepository;
-import com.zolmeet.zolmeet.domain.member.MemberRepositoryImpl;
 import com.zolmeet.zolmeet.domain.member.Status;
 
 import java.util.ArrayList;
@@ -14,25 +13,32 @@ import java.util.Map;
 public class Matchinglmpl implements Matching{
 
     private final MemberRepository memberRepository;
+    private final MatchingHistory matchingHistory;
 
-    public Matchinglmpl(MemberRepository memberRepository) {
+    public Matchinglmpl(MemberRepository memberRepository, MatchingHistory matchingHistory) {
         this.memberRepository = memberRepository;
+        this.matchingHistory = matchingHistory;
     }
 
     @Override
     public List<Member> collectCandidatesOf(Member myself) {
         List<Member> members = memberRepository.findAll();
+
         List<Member> candidatesList = new ArrayList<>();
 
-        for (Member member : members) {
+        for (Member candidate : members) {
 
-            if (myself.isSameStudentId(member)) {
+            if (myself.isSameStudentId(candidate)) {
                 continue;
             }
 
-            if (!myself.isEqualGender(member)) {
-                candidatesList.add(member);
+            if (!myself.isEqualGender(candidate)) {
+                candidatesList.add(candidate);
             }
+
+            /*if (!matchingHistory.checkOf(myself).contains(candidate)) {
+                candidatesList.add(candidate);
+            }*/
         }
         return candidatesList;
     }
@@ -43,6 +49,7 @@ public class Matchinglmpl implements Matching{
         Member partner = candidates.get(0); //임시 후보자 선정방식
 
         changeStatusToMatched(myself, partner);
+        matchingHistory.save(myself, partner);
 
         Map<String, Member> duo = new HashMap<>();
         duo.put("myself", myself);
