@@ -1,0 +1,38 @@
+package com.zolmeet.zolmeet.domain.match;
+
+import com.zolmeet.zolmeet.domain.member.Member;
+
+import java.util.*;
+
+public class MatchingHistory {
+
+    private static final Map<Member, List<Optional<Member>>> store = new HashMap<>();
+
+    public void save(Member myself, Member partner) {
+
+        if (store.get(myself) != null) {
+            ifHasRecord(myself, partner);
+            ifHasRecord(partner, myself);
+        }
+        else {
+            ifRecordFirst(partner, myself);
+            ifRecordFirst(myself, partner);
+        }
+
+    }
+    public List<Optional<Member>> checkOf(Member member) {
+        return store.get(member);
+    }
+
+    private void ifHasRecord(Member myself, Member partner) {
+        List<Optional<Member>> myMatchingHistory = store.get(myself);
+        myMatchingHistory.add(Optional.ofNullable(partner));
+        store.put(myself, myMatchingHistory);
+    }
+
+    private void ifRecordFirst(Member partner, Member myself) {
+        List<Optional<Member>> myInitHistory = new ArrayList<>();
+        myInitHistory.add(Optional.ofNullable(partner));
+        store.put(myself, myInitHistory);
+    }
+}
