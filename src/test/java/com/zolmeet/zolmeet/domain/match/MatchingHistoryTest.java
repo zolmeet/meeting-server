@@ -27,10 +27,19 @@ class MatchingHistoryTest {
         Member member2 = new Member("B335128", Gender.FEMALE);
 
         matchingHistory.save(member1, member2);
-        List<Optional<Member>> member1MatchingHistory = matchingHistory.checkOf(member1);
-        assertThat(member1MatchingHistory).contains(Optional.ofNullable(member2));
+        List<Member> member1MatchingHistory = matchingHistory.checkOf(member1);
+        assertThat(member1MatchingHistory).contains(member2);
 
-        List<Optional<Member>> member2MatchingHistory = matchingHistory.checkOf(member2);
-        assertThat(member2MatchingHistory).contains(Optional.ofNullable(member1));
+        List<Member> member2MatchingHistory = matchingHistory.checkOf(member2);
+        assertThat(member2MatchingHistory).contains(member1);
+    }
+
+    @DisplayName("Null 로 부터 안전하지 검증")
+    @Test
+    void name() {
+        Member member1 = new Member("B335129", Gender.MALE);
+        Member member2 = new Member("B335128", Gender.FEMALE);
+
+        assertThat(matchingHistory.checkOf(member1).isEmpty()).isTrue();
     }
 }

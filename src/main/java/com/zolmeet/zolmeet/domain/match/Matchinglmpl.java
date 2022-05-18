@@ -32,13 +32,18 @@ public class Matchinglmpl implements Matching{
                 continue;
             }
 
-            if (!myself.isEqualGender(candidate)) {
+            if (myself.isEqualGender(candidate)) {
+                continue;
+            }
+            if (matchingHistory.checkOf(myself) == null) {
+                System.out.println("매칭 이력이 전무해서 넣는다.");
+                candidatesList.add(candidate);
+            }
+            else if (!matchingHistory.checkOf(myself).contains(candidate)) {
+                System.out.println("해당 파트너와 매칭한 적이 없어서 넣는다.");
                 candidatesList.add(candidate);
             }
 
-            /*if (!matchingHistory.checkOf(myself).contains(candidate)) {
-                candidatesList.add(candidate);
-            }*/
         }
         return candidatesList;
     }

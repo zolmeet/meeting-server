@@ -1,10 +1,7 @@
-package com.zolmeet.zolmeet.domain;
+package com.zolmeet.zolmeet.domain.member;
 
-import com.zolmeet.zolmeet.domain.member.Gender;
-import com.zolmeet.zolmeet.domain.member.Member;
-import com.zolmeet.zolmeet.domain.member.MemberRepository;
-import com.zolmeet.zolmeet.domain.member.MemberRepositoryImpl;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -12,6 +9,10 @@ class MemberRepositoryImplTest {
 
     MemberRepository memberRepository = new MemberRepositoryImpl();
 
+    @BeforeEach
+    void beforeEach() {
+        memberRepository.clear();
+    }
     @DisplayName("멤버가 등록을 완료하면 저장소에 저장되여야 한다.")
     @Test
     void name() {

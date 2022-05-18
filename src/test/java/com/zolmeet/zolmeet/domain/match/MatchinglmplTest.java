@@ -8,8 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -31,7 +33,6 @@ class MatchinglmplTest {
     }
 
     /**
-     *
      *  collectCandidates()
      */
 
@@ -77,10 +78,10 @@ class MatchinglmplTest {
         Member partner = memberMap.get("partner");
 
         //member1이 매칭을 취소, 이후 새롭게 매칭을 시도
-        List<Member> candidateList = matchingService.collectCandidatesOf(member1);
+        List<Member> newCandidateList = matchingService.collectCandidatesOf(member1);
 
-        //새로운 매칭 후보자에는 partner 가 포함되면 안아야된다.
-        /*assertThat(partner).isNotIn(candidateList);*/
+        //새로운 매칭 후보자에는 partner 가 포함되면 않아야된다.
+        assertThat(partner).isNotIn(newCandidateList);
     }
 
     // 진행중

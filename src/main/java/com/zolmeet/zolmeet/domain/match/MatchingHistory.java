@@ -6,7 +6,7 @@ import java.util.*;
 
 public class MatchingHistory {
 
-    private static final Map<Member, List<Optional<Member>>> store = new HashMap<>();
+    private static final Map<Member, List<Member>> store = new HashMap<>();
 
     public void save(Member myself, Member partner) {
 
@@ -20,19 +20,19 @@ public class MatchingHistory {
         }
 
     }
-    public List<Optional<Member>> checkOf(Member member) {
+    public List<Member> checkOf(Member member) {
         return store.get(member);
     }
 
     private void ifHasRecord(Member myself, Member partner) {
-        List<Optional<Member>> myMatchingHistory = store.get(myself);
-        myMatchingHistory.add(Optional.ofNullable(partner));
+        List<Member> myMatchingHistory = store.get(myself);
+        myMatchingHistory.add(partner);
         store.put(myself, myMatchingHistory);
     }
 
     private void ifRecordFirst(Member partner, Member myself) {
-        List<Optional<Member>> myInitHistory = new ArrayList<>();
-        myInitHistory.add(Optional.ofNullable(partner));
+        List<Member> myInitHistory = new ArrayList<>();
+        myInitHistory.add(partner);
         store.put(myself, myInitHistory);
     }
 }
